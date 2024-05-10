@@ -1,0 +1,280 @@
+id,type,submitdate,stai_stress,stai_stress_category
+1,stai,2021-05-31,45.0,Below average
+1,stai,2021-06-07,46.0,Average
+1,stai,2021-07-19,46.0,Average
+1,stai,2021-07-26,46.0,Average
+1,stai,2021-06-28,54.0,Above average
+2,stai,2021-11-29,40.0,Below average
+2,stai,2021-12-06,47.0,Average
+2,stai,2022-01-07,42.0,Below average
+2,stai,2021-12-13,44.0,Below average
+2,stai,2022-01-05,44.0,Below average
+2,stai,2022-01-10,38.0,Below average
+3,stai,2021-06-07,47.0,Average
+3,stai,2021-06-22,52.0,Above average
+3,stai,2021-06-30,53.0,Above average
+3,stai,2021-07-30,52.0,Above average
+3,stai,2021-07-17,50.0,Average
+6,stai,2021-12-27,54.0,Above average
+6,stai,2021-12-22,52.0,Above average
+6,stai,2022-01-04,52.0,Above average
+7,stai,2021-05-31,43.0,Below average
+7,stai,2021-06-07,45.0,Below average
+7,stai,2021-06-22,47.0,Average
+7,stai,2021-06-28,43.0,Below average
+7,stai,2021-07-13,58.0,Above average
+7,stai,2021-06-15,52.0,Above average
+7,stai,2021-07-05,50.0,Average
+7,stai,2021-07-20,53.0,Above average
+7,stai,2021-07-26,50.0,Average
+9,stai,2021-06-01,45.0,Below average
+9,stai,2021-06-08,47.0,Average
+9,stai,2021-06-23,43.0,Below average
+9,stai,2021-07-15,49.0,Average
+9,stai,2021-08-02,48.0,Average
+9,stai,2021-06-14,47.0,Average
+9,stai,2021-06-29,45.0,Below average
+10,stai,2021-06-22,41.0,Below average
+10,stai,2021-05-31,38.0,Below average
+10,stai,2021-06-08,39.0,Below average
+10,stai,2021-06-20,47.0,Average
+10,stai,2021-06-28,39.0,Below average
+10,stai,2021-07-06,46.0,Average
+10,stai,2021-07-13,37.0,Below average
+10,stai,2021-07-19,42.0,Below average
+10,stai,2021-07-30,43.0,Below average
+11,stai,2021-12-26,54.0,Above average
+11,stai,2022-01-09,55.0,Above average
+11,stai,2021-11-28,53.0,Above average
+11,stai,2021-12-12,52.0,Above average
+11,stai,2022-01-16,59.0,Above average
+12,stai,2021-06-28,50.0,Average
+12,stai,2021-07-05,46.0,Average
+12,stai,2021-07-20,42.0,Below average
+12,stai,2021-05-31,42.0,Below average
+12,stai,2021-06-07,54.0,Above average
+12,stai,2021-06-22,49.0,Average
+12,stai,2021-07-12,42.0,Below average
+12,stai,2021-07-26,46.0,Average
+13,stai,2021-05-31,52.0,Above average
+13,stai,2021-07-20,52.0,Above average
+13,stai,2021-06-12,50.0,Average
+13,stai,2021-06-24,51.0,Above average
+13,stai,2021-07-05,54.0,Above average
+13,stai,2021-07-26,51.0,Above average
+14,stai,2021-12-20,41.0,Below average
+14,stai,2021-12-28,30.0,Below average
+14,stai,2022-01-10,34.0,Below average
+14,stai,2021-11-29,26.0,Below average
+14,stai,2021-12-01,39.0,Below average
+14,stai,2021-12-06,36.0,Below average
+14,stai,2021-12-13,34.0,Below average
+14,stai,2022-01-03,38.0,Below average
+15,stai,2021-12-13,49.0,Average
+15,stai,2022-01-10,53.0,Above average
+15,stai,2021-12-20,54.0,Above average
+15,stai,2021-12-27,54.0,Above average
+15,stai,2022-01-03,52.0,Above average
+16,stai,2021-06-29,52.0,Above average
+16,stai,2021-06-01,47.0,Average
+16,stai,2021-06-08,49.0,Average
+16,stai,2021-06-20,57.0,Above average
+16,stai,2021-07-13,55.0,Above average
+16,stai,2021-07-26,52.0,Above average
+17,stai,2021-08-28,51.0,Above average
+17,stai,2021-12-13,55.0,Above average
+17,stai,2021-05-31,45.0,Below average
+17,stai,2021-06-07,51.0,Above average
+17,stai,2021-11-22,50.0,Average
+21,stai,2021-06-04,41.0,Below average
+21,stai,2021-06-14,46.0,Average
+21,stai,2021-06-22,54.0,Above average
+21,stai,2021-07-05,44.0,Below average
+21,stai,2021-07-19,40.0,Below average
+21,stai,2021-07-26,50.0,Average
+21,stai,2021-08-01,50.0,Average
+22,stai,2021-11-23,54.0,Above average
+22,stai,2021-12-13,56.0,Above average
+22,stai,2022-01-10,50.0,Average
+22,stai,2021-11-29,50.0,Average
+22,stai,2021-12-06,54.0,Above average
+22,stai,2021-12-20,54.0,Above average
+22,stai,2021-12-28,53.0,Above average
+22,stai,2022-01-03,54.0,Above average
+23,stai,2021-06-27,51.0,Above average
+23,stai,2021-07-05,50.0,Average
+23,stai,2021-07-31,50.0,Average
+23,stai,2021-05-31,52.0,Above average
+23,stai,2021-06-14,47.0,Average
+23,stai,2021-07-25,51.0,Above average
+25,stai,2021-11-22,44.0,Below average
+25,stai,2021-12-31,48.0,Average
+25,stai,2021-12-27,51.0,Above average
+25,stai,2022-01-04,49.0,Average
+26,stai,2021-11-22,55.0,Above average
+26,stai,2021-12-14,57.0,Above average
+26,stai,2021-12-20,59.0,Above average
+26,stai,2021-12-27,53.0,Above average
+26,stai,2022-01-03,53.0,Above average
+26,stai,2021-11-29,57.0,Above average
+26,stai,2022-01-11,56.0,Above average
+27,stai,2021-05-31,42.0,Below average
+27,stai,2021-06-23,45.0,Below average
+30,stai,2021-12-12,48.0,Average
+30,stai,2021-12-20,52.0,Above average
+30,stai,2022-01-11,51.0,Above average
+30,stai,2021-11-22,55.0,Above average
+30,stai,2021-11-29,48.0,Average
+30,stai,2022-01-03,53.0,Above average
+31,stai,2021-11-27,44.0,Below average
+31,stai,2021-12-06,45.0,Below average
+31,stai,2021-12-20,52.0,Above average
+31,stai,2021-12-26,53.0,Above average
+31,stai,2021-12-31,50.0,Average
+31,stai,2022-01-09,50.0,Average
+31,stai,2022-01-17,51.0,Above average
+32,stai,2021-07-19,48.0,Average
+32,stai,2021-07-26,53.0,Above average
+32,stai,2021-06-07,46.0,Average
+32,stai,2021-06-28,51.0,Above average
+32,stai,2021-07-01,53.0,Above average
+32,stai,2021-07-12,56.0,Above average
+33,stai,2021-05-31,48.0,Average
+33,stai,2021-09-19,52.0,Above average
+34,stai,2021-05-31,55.0,Above average
+34,stai,2021-06-07,51.0,Above average
+34,stai,2021-06-21,50.0,Average
+34,stai,2021-07-05,48.0,Average
+34,stai,2021-07-12,49.0,Average
+34,stai,2021-06-14,48.0,Average
+34,stai,2021-06-28,51.0,Above average
+34,stai,2021-07-19,49.0,Average
+34,stai,2021-07-26,48.0,Average
+35,stai,2021-06-14,54.0,Above average
+35,stai,2021-06-24,54.0,Above average
+35,stai,2021-06-28,56.0,Above average
+35,stai,2021-07-05,57.0,Above average
+35,stai,2021-05-31,52.0,Above average
+35,stai,2021-06-07,50.0,Average
+35,stai,2021-07-12,55.0,Above average
+35,stai,2021-07-19,49.0,Average
+35,stai,2021-07-26,55.0,Above average
+36,stai,2021-12-09,50.0,Average
+37,stai,2021-05-31,54.0,Above average
+37,stai,2021-06-07,50.0,Average
+37,stai,2021-06-14,45.0,Below average
+37,stai,2021-06-21,54.0,Above average
+37,stai,2021-06-28,48.0,Average
+37,stai,2021-07-12,50.0,Average
+38,stai,2021-12-13,48.0,Average
+38,stai,2022-01-25,54.0,Above average
+38,stai,2021-11-23,57.0,Above average
+38,stai,2021-12-27,50.0,Average
+39,stai,2021-11-23,43.0,Below average
+39,stai,2022-01-04,44.0,Below average
+39,stai,2021-11-30,45.0,Below average
+39,stai,2021-12-09,51.0,Above average
+39,stai,2021-12-23,44.0,Below average
+39,stai,2021-12-29,46.0,Average
+39,stai,2022-01-10,50.0,Average
+40,stai,2021-06-02,55.0,Above average
+41,stai,2021-11-23,53.0,Above average
+42,stai,2021-11-27,49.0,Average
+43,stai,2021-06-16,35.0,Below average
+43,stai,2021-05-31,47.0,Average
+43,stai,2021-06-07,38.0,Below average
+43,stai,2021-06-22,36.0,Below average
+43,stai,2021-07-05,39.0,Below average
+43,stai,2021-07-12,35.0,Below average
+43,stai,2021-07-20,36.0,Below average
+43,stai,2021-07-29,29.0,Below average
+44,stai,2021-07-20,38.0,Below average
+44,stai,2021-06-07,39.0,Below average
+45,stai,2021-11-29,49.0,Average
+45,stai,2021-12-27,50.0,Average
+45,stai,2022-01-03,49.0,Average
+45,stai,2021-11-22,49.0,Average
+45,stai,2021-12-06,51.0,Above average
+45,stai,2021-12-14,45.0,Below average
+45,stai,2021-12-20,48.0,Average
+45,stai,2022-01-12,49.0,Average
+46,stai,2021-06-28,49.0,Average
+46,stai,2021-07-12,48.0,Average
+46,stai,2021-07-19,47.0,Average
+46,stai,2021-07-26,48.0,Average
+46,stai,2021-06-14,51.0,Above average
+46,stai,2021-06-21,50.0,Average
+47,stai,2021-11-23,47.0,Average
+47,stai,2021-11-30,48.0,Average
+47,stai,2021-12-06,43.0,Below average
+47,stai,2021-12-24,47.0,Average
+47,stai,2022-01-06,49.0,Average
+47,stai,2022-01-10,51.0,Above average
+48,stai,2021-06-03,55.0,Above average
+48,stai,2021-06-28,54.0,Above average
+48,stai,2021-07-12,52.0,Above average
+50,stai,2021-05-31,55.0,Above average
+50,stai,2021-06-10,48.0,Average
+50,stai,2021-07-12,50.0,Average
+50,stai,2021-07-20,45.0,Below average
+50,stai,2021-07-28,49.0,Average
+50,stai,2021-06-22,43.0,Below average
+50,stai,2021-06-28,45.0,Below average
+50,stai,2021-07-05,48.0,Average
+54,stai,2021-12-14,48.0,Average
+54,stai,2021-12-23,47.0,Average
+54,stai,2022-01-12,49.0,Average
+56,stai,2021-05-31,49.0,Average
+56,stai,2021-06-09,48.0,Average
+56,stai,2021-06-22,50.0,Average
+56,stai,2021-07-05,53.0,Above average
+56,stai,2021-07-19,51.0,Above average
+57,stai,2021-06-02,49.0,Average
+58,stai,2021-06-20,43.0,Below average
+58,stai,2021-06-30,44.0,Below average
+58,stai,2021-06-07,45.0,Below average
+58,stai,2021-07-26,40.0,Below average
+60,stai,2021-06-14,45.0,Below average
+60,stai,2021-07-26,45.0,Below average
+60,stai,2021-08-02,39.0,Below average
+61,stai,2021-11-24,49.0,Average
+61,stai,2021-12-10,45.0,Below average
+61,stai,2022-01-03,47.0,Average
+61,stai,2022-01-10,48.0,Average
+63,stai,2021-06-02,49.0,Average
+63,stai,2021-07-04,47.0,Average
+63,stai,2021-06-27,43.0,Below average
+63,stai,2021-07-11,45.0,Below average
+63,stai,2021-08-01,43.0,Below average
+64,stai,2021-12-06,44.0,Below average
+64,stai,2021-12-20,40.0,Below average
+64,stai,2021-12-27,42.0,Below average
+64,stai,2022-01-04,42.0,Below average
+64,stai,2021-11-22,45.0,Below average
+64,stai,2021-12-13,46.0,Average
+64,stai,2022-01-10,45.0,Below average
+65,stai,2021-11-29,52.0,Above average
+65,stai,2022-01-17,47.0,Average
+65,stai,2021-11-24,53.0,Above average
+65,stai,2021-12-14,52.0,Above average
+65,stai,2021-12-23,52.0,Above average
+65,stai,2022-01-07,49.0,Average
+67,stai,2021-05-31,49.0,Average
+67,stai,2021-06-23,45.0,Below average
+67,stai,2021-07-06,47.0,Average
+67,stai,2021-06-30,49.0,Average
+69,stai,2021-07-12,50.0,Average
+69,stai,2021-07-26,48.0,Average
+69,stai,2021-05-31,48.0,Average
+69,stai,2021-06-07,49.0,Average
+69,stai,2021-06-21,45.0,Below average
+69,stai,2021-06-28,45.0,Below average
+69,stai,2021-07-05,49.0,Average
+69,stai,2021-07-20,49.0,Average
+70,stai,2021-12-20,33.0,Below average
+70,stai,2022-01-02,59.0,Above average
+71,stai,2021-06-08,60.0,Above average
+71,stai,2021-07-06,60.0,Above average
+71,stai,2021-06-01,59.0,Above average
+71,stai,2021-06-22,60.0,Above average
+71,stai,2021-07-12,51.0,Above average
