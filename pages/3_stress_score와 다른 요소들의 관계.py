@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 #Path불러오기 
-folder_path = os.path.join("../output_data/")
+folder_path = os.path.join("./output_data/")
 daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
 hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
 breq = pd.read_csv(f'{folder_path}'+'breq.csv')
