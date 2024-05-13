@@ -12,18 +12,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import streamlit as st
-from streamlit.logger import get_logger
-
-LOGGER = get_logger(__name__)
-
-
-def run():
-    st.set_page_config(
-        page_title="데이터에 대하여",
-    )
-
-    st.write("# 데이터 수집 방식 개요등을 설명합니다")
-
-if __name__ == "__main__":
-    run()
