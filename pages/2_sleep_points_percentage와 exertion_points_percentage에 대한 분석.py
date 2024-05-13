@@ -14,10 +14,6 @@
 
 
 
-
-##### notion: 수훈이 작업 코드 뒤에 이어붙이면 됩니다. #####
-
-
 #total_active_minutes 생성
 daily_sema['total_active_minutes'] = daily_sema['lightly_active_minutes'] + daily_sema['moderately_active_minutes'] + daily_sema['very_active_minutes']
 

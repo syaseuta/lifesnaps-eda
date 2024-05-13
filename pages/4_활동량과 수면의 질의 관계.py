@@ -20,8 +20,8 @@ import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="stress_score와 다른 요소들의 관계")
-st.markdown("# stress_score와 다른 요소들의 관계")
+st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
+st.markdown("활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
 # ###모든 글자는 st.markdown(
 #     "<h2 style='text-align: center;'>스트레스 관리와 수면의 질, 활동과의 상관관계</h2>"
 #     "<h3 style='text-align: center;'>Top10 heatmap</h3>",
@@ -61,22 +61,22 @@ st.markdown(
 
 plt.figure(figsize=(20, 20))
 plt.subplot(3, 2, 1)
-sns.lineplot(data=daily_sema, x='calories', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='calories', palette='bright')
 plt.title('calories vs sleep_points_percentage')
 plt.subplot(3, 2, 2)
-sns.lineplot(data=daily_sema, x='distance', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='distance', palette='bright')
 plt.title('distance vs sleep_points_percentage')
 plt.subplot(3, 2, 3)
-sns.lineplot(data=daily_sema, x='total_active_minutes', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='total_active_minutes', palette='bright')
 plt.title('total_active_minutes vs sleep_points_percentage')
 plt.subplot(3, 2, 4)
-sns.lineplot(data=daily_sema, x='lightly_actvie_minutes', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='lightly_active_minutes', palette='bright')
 plt.title('lightly_active_minutes vs sleep_points_percentage')
 plt.subplot(3, 2, 5)
-sns.lineplot(data=daily_sema, x='moderately_active_minutes', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='moderately_active_minutes', palette='bright')
 plt.title('moderately_active_minutes vs sleep_points_percentage')
 plt.subplot(3, 2, 6)
-sns.lineplot(data=daily_sema, x='very_active_minutes', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='very_active_minutes', palette='bright')
 plt.title('very_active_minutes vs sleep_points_percentage')
 st.pyplot(plt)
 
@@ -88,10 +88,10 @@ st.markdown(
 
 plt.figure(figsize=(20, 20))
 plt.subplot(1, 2, 1)
-sns.lineplot(data=daily_sema, x='sedentary_minutes', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='sedentary_minutes', palette='bright')
 plt.title('sedentary_minutes vs sleep_points_percentage')
 plt.subplot(1, 2, 2)
-sns.lineplot(data=daily_sema, x='resting_hr', y='sleep_points_percentage', palette='bright')
+sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='resting_hr', palette='bright')
 plt.title('resting_hr vs sleep_points_percentage')
 st.pyplot(plt)
 
