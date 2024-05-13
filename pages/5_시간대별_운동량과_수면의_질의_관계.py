@@ -20,8 +20,8 @@ import os
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-from main import daily_sema
-from main import hourly_sema
+from 데이터_수집 import daily_sema
+from 데이터_수집 import hourly_sema
 
 st.set_page_config(page_title="시간대별 운동량과 수면의 질의 관계")
 st.markdown(

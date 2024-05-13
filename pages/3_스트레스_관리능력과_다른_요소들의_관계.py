@@ -20,7 +20,7 @@ from sklearn.linear_model import LinearRegression
 from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import streamlit as st
-from main import daily_sema
+from 데이터_수집 import daily_sema
 
 st.markdown(
     "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
