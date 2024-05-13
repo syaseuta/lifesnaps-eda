@@ -52,6 +52,7 @@ df['sleep_points_percentage'] = df['sleep_points_percentage'] * 100
 
 # user_id 별로 그룹화하여 평균값 계산
 grouped_mean = df.groupby('id').mean()
+print(grouped_mean)
 
 st.markdown(
     "<h1 style='text-align: center;'>수면 데이터 분석</h1>", 
