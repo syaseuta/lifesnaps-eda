@@ -41,8 +41,8 @@ daily_sema.drop(daily_sema[daily_sema['stress_score'] == 0.0].index, inplace=Tru
 daily_sema.drop(daily_sema[daily_sema['total_active_minutes'] == 0.0].index, inplace=True)
 
 st.markdown(
-    "<h3 style='text-align: left;'>평균 칼로리 소모량 상위 25%인 그룹과 하위 25%인 그룹을 추출하여\
-        시간대별 칼로리 소모량을 추적함</h3>",
+    "<h4 style='text-align: left;'>평균 칼로리 소모량 상위 25%인 그룹과 하위 25%인 그룹을 추출하여\
+        시간대별 칼로리 소모량을 추적함</h4>",
     unsafe_allow_html=True
 )
 
@@ -91,15 +91,20 @@ for id in lower_25_ids:
     i += 1
     st.pyplot(plt)
 
-st.markdown(
-    "<h3 style='text-align: center;'>상위 25%인 그룹의 저녁 시간대(7~9시 사이) 운동량이 하위 25%에 비해 월등이 높다.\
-        </h3>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+상위 25%인 그룹의 저녁 시간대(7~9시 사이) 운동량이 하위 25%에 비해 월등이 높다.<br><br>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown(
-    "<h4 style='text-align: center;'>상위 25%인 그룹(파란색)과 하위 25%인 그룹(오렌지색)의 시간대별 운동량.\
-        </h4>",
+    "<h3 style='text-align: center;'>상위 25%인 그룹(파란색)과 하위 25%인 그룹(오렌지색)의 시간대별 운동량.\
+        </h3>",
     unsafe_allow_html=True
 )
 
@@ -115,13 +120,14 @@ plt.title('Combined KDE Plot for lower 25% ids vs upper 25% ids')
 plt.legend(loc='upper left', fontsize='large')
 st.pyplot(plt)
 
-st.markdown(
-    "<h4 style='text-align: left;'>상위 25%인 그룹(파란색)은 마치 낙타처럼 저녁 시간대의 운동량이 급격하게 상승한 모습을 볼 수 있다.\
-        </h4>",
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<h1 style='text-align: left;'>즉 저녁 시간대의 운동은 수면 품질에 악영향을 미칠 수 있다.\
-        </h1>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+상위 25%인 그룹(파란색)은 마치 낙타처럼 저녁 시간대의 운동량이 급격하게 상승한 모습을 볼 수 있다. 
+즉, 저녁 시간대의 운동은 수면 품질에 악영향을 미칠 수 있다.<br><br>
+</div>
+""", unsafe_allow_html=True)

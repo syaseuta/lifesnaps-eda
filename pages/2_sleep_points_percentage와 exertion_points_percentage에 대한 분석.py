@@ -103,12 +103,13 @@ daily_sema.drop(daily_sema[daily_sema['stress_score'] == 0.0].index, inplace=Tru
 daily_sema.drop(daily_sema[daily_sema['total_active_minutes'] == 0.0].index, inplace=True)
 
 st.markdown(
-    "<h1 style='text-align: center;'>Exertion_points_percentage(활동지수)는 무엇인가?</h1>",
+    "<h2 style='text-align: left;'>Exertion_points_percentage(활동지수)는 무엇인가?</h2>",
+    unsafe_allow_html=True
 )
 
 st.markdown(
-    "<h2 style='text-align: center;'>Exertion_points_percentage(활동지수)에 영향을 미치는 요인</h2>"
-    "<h3 style='text-align: center;'>Heatmap Top 10</h3>", 
+    "<h3 style='text-align: left;'>Exertion_points_percentage(활동지수)에 영향을 미치는 요인</h3>"
+    "<h4 style='text-align: left;'>Heatmap Top 10</h4>", 
     unsafe_allow_html=True
 )
 
@@ -121,7 +122,7 @@ plt.show()
 st.pyplot(plt)
 
 st.markdown(
-    "<h3 style='text-align: center;'>exertion_points_percentage에 영향을 미치는 요인 8개</h3>", 
+    "<h3 style='text-align: left;'>exertion_points_percentage에 영향을 미치는 요인 8개</h3>", 
     unsafe_allow_html=True
 )
 # 그래프 크기 및 subplot 생성
@@ -150,14 +151,17 @@ for i, ax in enumerate(axs.flat):
 # 레이아웃 조정
 plt.tight_layout()
 
-# 그래프 출력
-plt.show()
-
-st.markdown(
-    "<h3 style='text-align: center;'>calories, distance, total_active_minutes 처럼 활동과 관련된 지표가 상승할수록 exertion_points_percentage는 상승하며, \
-        반대로 sedentary_minutes와 resting_hr처럼 휴식 지표가 상승할수록 exertion_points_percentage가 하락한다. \
-            따라서 exertion_points_percentage가 활동지수로서 신뢰할 만한 지표인 것을 확인할 수 있다.</h3>",
-    unsafe_allow_html=True
-)
-
 st.pyplot(plt)
+
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+calories, distance, total_active_minutes 처럼 활동과 관련된 지표가 상승할수록 exertion_points_percentage는 상승하며, 
+반대로 sedentary_minutes와 resting_hr처럼 휴식 지표가 상승할수록 exertion_points_percentage가 하락한다.
+따라서 exertion_points_percentage가 활동지수로서 신뢰할 만한 지표인 것을 확인할 수 있다.<br><br>
+</div>
+""", unsafe_allow_html=True)
