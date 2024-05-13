@@ -21,7 +21,10 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
-st.markdown("활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
+st.markdown(
+    "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
+    unsafe_allow_html=True
+)
 # ###모든 글자는 st.markdown(
 #     "<h2 style='text-align: center;'>스트레스 관리와 수면의 질, 활동과의 상관관계</h2>"
 #     "<h3 style='text-align: center;'>Top10 heatmap</h3>",
@@ -53,36 +56,95 @@ daily_sema.drop(daily_sema[daily_sema['sleep_points_percentage'] == 0.0].index, 
 daily_sema.drop(daily_sema[daily_sema['stress_score'] == 0.0].index, inplace=True)
 daily_sema.drop(daily_sema[daily_sema['total_active_minutes'] == 0.0].index, inplace=True)
 
+# daily_sema 데이터프레임에서 'sedentary_minutes'의 75번째 백분위수 계산
+sedentary_quantile_75 = daily_sema['sedentary_minutes'].quantile(0.75)
+
+# 'total_active_minutes'가 75번째 백분위수 이상인지를 확인하고 'total_active_rank' 설정
+daily_sema['sedentary_rank'] = daily_sema['sedentary_minutes'].apply(
+    lambda x: 'upper 25%' if x >= sedentary_quantile_75 else 'upper 75%'
+)
+
+# daily_sema 데이터프레임에서 'total_active_minutes'의 75번째 백분위수 계산
+total_active_quantile_75 = daily_sema['total_active_minutes'].quantile(0.75)
+
+# 'total_active_minutes'가 75번째 백분위수 이상인지를 확인하고 'total_active_rank' 설정
+daily_sema['total_active_rank'] = daily_sema['total_active_minutes'].apply(
+    lambda x: 'upper 25%' if x >= total_active_quantile_75 else 'upper 75%'
+)
+
+# daily_sema 데이터프레임에서 'lightly_active_minutes'의 75번째 백분위수 계산
+lightly_quantile_75 = daily_sema['lightly_active_minutes'].quantile(0.75)
+
+# 'lightly_active_minutes'가 75번째 백분위수 이상인지를 확인하고 'lightly_active_rank' 설정
+daily_sema['lightly_active_rank'] = daily_sema['lightly_active_minutes'].apply(
+    lambda x: 'upper 25%' if x >= lightly_quantile_75 else 'upper 75%'
+)
+
+# daily_sema 데이터프레임에서 'moderately_active_minutes'의 75번째 백분위수 계산
+moderately_quantile_75 = daily_sema['moderately_active_minutes'].quantile(0.75)
+
+# 'moderately_active_minutes'가 75번째 백분위수 이상인지를 확인하고 'moderately_rank' 설정
+daily_sema['moderately_active_rank'] = daily_sema['moderately_active_minutes'].apply(
+    lambda x: 'upper 25%' if x >= moderately_quantile_75 else 'upper 75%'
+)
+
+# daily_sema 데이터프레임에서 'very_active_minutes'의 75번째 백분위수 계산
+very_active_quantile_75 = daily_sema['very_active_minutes'].quantile(0.75)
+
+# 'very_active_minutes'가 75번째 백분위수 이상인지를 확인하고 'very_active_rank' 설정
+daily_sema['very_active_rank'] = daily_sema['very_active_minutes'].apply(
+    lambda x: 'upper 25%' if x >= very_active_quantile_75 else 'upper 75%'
+)
+
+
+
 st.markdown(
-    "<h1 style='text-align: left;'>활동 지수에 큰 영향을 미치는 요소를 종류별로 나누어\
-        sleep_points_percetnage(수면품질)과의 연관성 분석</h1>",
+    "<h3 style='text-align: left;'>다음 그래프는 활동 시간을 강도별로 나누어 수면품질과 스트레스 관리 수치의 연관성을 분석한 결과입니다.</h3>"
+    "<h4 style='text-align: left;'>stress_score vs sleep_points_percentage by 'active_minutes'.</h4>",
     unsafe_allow_html=True
 )
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+이 그래프는 총 운동 시간, 가벼운 운동 시간, 적당한 운동 시간, 강한 운동 시간에 따라 수면 품질이 어떻게 달라지는지 분석한 그래프입니다. 
+운동의 강도별로 운동량 상위 25%인 그룹과 상위 75%인 그룹을 구분하여 수면품질의 차이를 분석한 결과
+스트레스 관리 능력이 높을 수록 수면 품질이 높아지는 경향을 보입니다.
+주목할 점은 운동량 상위 75%인 그룹이 운동량 상위 25%인 그룹에 비해 높은 수면품질을 보여준다는 것입니다.<br><br>
+</div>
+""", unsafe_allow_html=True)
+
 
 plt.figure(figsize=(20, 20))
 plt.subplot(3, 2, 1)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='calories', palette='bright')
-plt.title('calories vs sleep_points_percentage')
+sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='sedentary_rank', palette='bright')
+plt.title('sedentary_rank')
 plt.subplot(3, 2, 2)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='distance', palette='bright')
-plt.title('distance vs sleep_points_percentage')
+sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='total_active_rank', palette='bright')
+plt.title('Total_Active_rank')
 plt.subplot(3, 2, 3)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='total_active_minutes', palette='bright')
-plt.title('total_active_minutes vs sleep_points_percentage')
+sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='lightly_active_rank', palette='bright')
+plt.title('lightly_active_rank')
 plt.subplot(3, 2, 4)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='lightly_active_minutes', palette='bright')
-plt.title('lightly_active_minutes vs sleep_points_percentage')
+sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='moderately_active_rank', palette='bright')
+plt.title('moderately_active_rank')
 plt.subplot(3, 2, 5)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='moderately_active_minutes', palette='bright')
-plt.title('moderately_active_minutes vs sleep_points_percentage')
-plt.subplot(3, 2, 6)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='very_active_minutes', palette='bright')
-plt.title('very_active_minutes vs sleep_points_percentage')
+sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='very_active_rank', palette='bright')
+plt.title('very_active_rank')
+plt.show()
 st.pyplot(plt)
 
 st.markdown(
-    "<h2 style='text-align: left;'>Active_minutes가 증가할수록\
-        sleep_points_percetnage(수면품질)이 하락하는 경향을 보임.</h2>",
+    "<h4 style='text-align: left;'>즉 상식과 달리 Active_minutes가 높으면 수면품질이 오히려 떨어지는 결과가 나타난다는 것입니다.</h4>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h3 style='text-align: left;'>다음 그래프는 휴식 시간과 수면 품질의 관련성을 나타낸 그래프입니다.</h3>"
+    "<h4 style='text-align: left;'>resting_hr vs sleep_points_percentage</h4>",
     unsafe_allow_html=True
 )
 
@@ -92,13 +154,11 @@ plt.title('resting_hr vs sleep_points_percentage')
 st.pyplot(plt)
 
 st.markdown(
-    "<h2 style='text-align: left;'>휴식 시간(resting_hr)이 증가할수록\
-        sleep_points_percetnage(수면품질)이 상승하는 경향을 보임.</h2>",
+    "<h4 style='text-align: left;'>오히려 휴식 시간(resting_hr)이 증가할수록 sleep_points_percetnage(수면품질)이 상승하는 경향을 보입니다.</h2>",
     unsafe_allow_html=True
 )
 
 st.markdown(
-    "<h3 style='text-align: left;'>운동시간(active_minutes)가 증가할수록 \
-        sleep_points_percetnage(수면품질)이 하락하는 이유가 무엇일까?</h3>",
+    "<h3 style='text-align: left;'>그렇다면 운동시간(active_minutes)가 증가할수록 sleep_points_percetnage(수면품질)이 하락하는 이유가 무엇일까요?</h3>",
     unsafe_allow_html=True
 )
