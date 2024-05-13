@@ -46,11 +46,16 @@ df_subset['sleep_points_percentage'] = df_subset['sleep_points_percentage'] * 10
 grouped_mean = df_subset.groupby('id').mean()
 
 st.markdown(
-    "<h1 style='text-align: center;'>수면 효율성 및 수면 포인트 분석</h1>", 
+    "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h2 style='text-align: center;'>수면 효율성 및 수면 포인트 분석</h2>", 
     unsafe_allow_html=True
 )
 st.markdown(    
-    "<h2>수면 평균 시간 및 수면 포인트 비율 관계 분석</h2>", 
+    "<h3>수면 평균 시간 및 수면 포인트 비율 관계 분석</h3>", 
     unsafe_allow_html=True
 )
 
