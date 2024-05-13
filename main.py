@@ -32,7 +32,7 @@ if __name__ == "__main__":
     run()
 
 
-@st.cache_resource
+# @st.cache_resource
 def load_data(path):
     return pd.read_csv(path)
 

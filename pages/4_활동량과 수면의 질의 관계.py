@@ -128,10 +128,16 @@ plt.title('very_active_rank')
 plt.show()
 st.pyplot(plt)
 
-st.markdown(
-    "<h4 style='text-align: left;'>즉 상식과 달리 Active_minutes가 높으면 수면품질이 오히려 떨어지는 결과가 나타난다는 것입니다.</h4>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+즉, 상식과 달리 Active_minutes가 높으면 수면품질이 오히려 떨어지는 결과가 나타난다는 것입니다.<br><br>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown(
     "<h3 style='text-align: left;'>다음 그래프는 휴식 시간과 수면 품질의 관련성을 나타낸 그래프입니다.</h3>"
@@ -144,12 +150,18 @@ sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='resting_hr', palet
 plt.title('resting_hr vs sleep_points_percentage')
 st.pyplot(plt)
 
-st.markdown(
-    "<h4 style='text-align: left;'>오히려 휴식 시간(resting_hr)이 증가할수록 sleep_points_percetnage(수면품질)이 상승하는 경향을 보입니다.</h2>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.text {
+    font-size: 14px;
+}
+</style>
+<div class="text">
+오히려 휴식 시간(resting_hr)이 증가할수록 sleep_points_percetnage(수면품질)이 상승하는 경향을 보입니다.<br><br>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown(
-    "<h3 style='text-align: left;'>그렇다면 운동시간(active_minutes)가 증가할수록 sleep_points_percetnage(수면품질)이 하락하는 이유가 무엇일까요?</h3>",
+    "<h4 style='text-align: left;'>그렇다면 운동시간(active_minutes)가 증가할수록 sleep_points_percetnage(수면품질)이 하락하는 이유가 무엇일까요?</h4>",
     unsafe_allow_html=True
 )
