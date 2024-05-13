@@ -30,11 +30,12 @@ personality = pd.read_csv(f'{folder_path}'+'personality.csv')
 stai = pd.read_csv(f'{folder_path}'+'stai.csv')
 ttm = pd.read_csv(f'{folder_path}'+'ttm.csv')
 
-# daily_sema 데이터로 데이터프레임 생성
-df = pd.DataFrame(daily_sema)
+# 필요한 컬럼 선택
+df_subset = daily_sema[['id', 'sleep_duration', 'sleep_efficiency', 'sleep_points_percentage', 'sleep_deep_ratio', 'sleep_wake_ratio',
+                        'sleep_light_ratio', 'sleep_rem_ratio']]
 
 # 결측값 제거
-df.dropna(subset=['sleep_duration'], inplace=True)
+df_subset.dropna(subset=['sleep_duration'], inplace=True)
 
 # 밀리초를 시간으로 변환하는 함수
 def milliseconds_to_hours(milliseconds):
@@ -42,18 +43,13 @@ def milliseconds_to_hours(milliseconds):
     return hours
 
 # 'sleep_duration' 컬럼의 값을 변환하여 새로운 컬럼에 저장
-df['sleep_duration_hours'] = df['sleep_duration'].apply(milliseconds_to_hours)
-
-# 'sleep_duration_hours' 컬럼 출력
-print(df['sleep_duration_hours'])
+df_subset['sleep_duration_hours'] = df_subset['sleep_duration'].apply(milliseconds_to_hours)
 
 # sleep_points_percentage 값을 100배하여 퍼센트로 표시
-df['sleep_points_percentage'] = df['sleep_points_percentage'] * 100
+df_subset['sleep_points_percentage'] = df_subset['sleep_points_percentage'] * 100
 
-# user_id 별로 그룹화하여 평균값 계산
-grouped_mean = df.groupby('id').mean()
-print(grouped_mean)
-
+# ID 별로 그룹화하여 평균값 계산
+grouped_mean = df_subset.groupby('id').mean()
 st.markdown(
     "<h1 style='text-align: center;'>수면 데이터 분석</h1>", 
     unsafe_allow_html=True
