@@ -17,12 +17,10 @@ import os
 import seaborn as sns
 from datetime import * 
 from functools import reduce
-from sklearn.linear_model import LinearRegression
-from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import streamlit as st
 
-# Path불러오기 
+# Path불러오기
 folder_path = os.path.join("./output_data/")
 daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
 hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
@@ -177,4 +175,3 @@ st.markdown("""**수면 시간과 수면 효율의 관계성 비교**
             → 수면 시간은 **6~8시간**으로 분포함  
             → 수면 효율은 **90~98퍼센트**로 분포함  
             → **음의 상관성**을 보임 BUT 분포도로 봤을때 **6~8시간**에서 제일 **높은 수면 효율성**을 보임""")
-
