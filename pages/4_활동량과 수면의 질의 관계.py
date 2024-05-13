@@ -29,7 +29,7 @@ st.markdown("활동량(Active_minutes)와 수면의 질(sleep_points_percentage)
 # )###로 표현했음
 
 #Path불러오기
-folder_path = os.path.join("./output_data/")
+folder_path = os.path.join("../output_data/")
 daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
 hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
 breq = pd.read_csv(f'{folder_path}'+'breq.csv')
@@ -54,7 +54,7 @@ daily_sema.drop(daily_sema[daily_sema['stress_score'] == 0.0].index, inplace=Tru
 daily_sema.drop(daily_sema[daily_sema['total_active_minutes'] == 0.0].index, inplace=True)
 
 st.markdown(
-    "<h1 style='text-align: center;'>활동 지수에 큰 영향을 미치는 요소를 종류별로 나누어\
+    "<h1 style='text-align: left;'>활동 지수에 큰 영향을 미치는 요소를 종류별로 나누어\
         sleep_points_percetnage(수면품질)과의 연관성 분석</h1>",
     unsafe_allow_html=True
 )
@@ -81,28 +81,24 @@ plt.title('very_active_minutes vs sleep_points_percentage')
 st.pyplot(plt)
 
 st.markdown(
-    "<h2 style='text-align: center;'>Active_minutes가 증가할수록\
+    "<h2 style='text-align: left;'>Active_minutes가 증가할수록\
         sleep_points_percetnage(수면품질)이 하락하는 경향을 보임.</h2>",
     unsafe_allow_html=True
 )
 
 plt.figure(figsize=(20, 20))
-plt.subplot(1, 2, 1)
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='sedentary_minutes', palette='bright')
-plt.title('sedentary_minutes vs sleep_points_percentage')
-plt.subplot(1, 2, 2)
 sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='resting_hr', palette='bright')
 plt.title('resting_hr vs sleep_points_percentage')
 st.pyplot(plt)
 
 st.markdown(
-    "<h2 style='text-align: center;'>휴식 시간(sedentary_minutes, resting_hr)이 증가할수록\
+    "<h2 style='text-align: left;'>휴식 시간(resting_hr)이 증가할수록\
         sleep_points_percetnage(수면품질)이 상승하는 경향을 보임.</h2>",
     unsafe_allow_html=True
 )
 
 st.markdown(
-    "<h3 style='text-align: center;'>운동시간(active_minutes)가 증가할수록 \
+    "<h3 style='text-align: left;'>운동시간(active_minutes)가 증가할수록 \
         sleep_points_percetnage(수면품질)이 하락하는 이유가 무엇일까?</h3>",
     unsafe_allow_html=True
 )
