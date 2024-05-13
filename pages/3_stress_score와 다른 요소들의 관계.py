@@ -20,16 +20,7 @@ from sklearn.linear_model import LinearRegression
 from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import streamlit as st
-
-#Path불러오기 
-folder_path = os.path.join("../output_data/")
-daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
-hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
-breq = pd.read_csv(f'{folder_path}'+'breq.csv')
-panas = pd.read_csv(f'{folder_path}'+'panas.csv')
-personality = pd.read_csv(f'{folder_path}'+'personality.csv')
-stai = pd.read_csv(f'{folder_path}'+'stai.csv')
-ttm = pd.read_csv(f'{folder_path}'+'ttm.csv')
+from main import daily_sema
 
 st.markdown(
     "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
