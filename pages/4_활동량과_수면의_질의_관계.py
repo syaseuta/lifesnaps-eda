@@ -19,7 +19,7 @@ import os
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-from main import daily_sema
+from 데이터_수집 import daily_sema
 
 st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
 st.markdown(

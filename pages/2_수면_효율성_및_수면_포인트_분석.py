@@ -22,7 +22,7 @@ from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 import streamlit as st
 
-from main import daily_sema
+from 데이터_수집 import daily_sema
 
 # 필요한 컬럼 선택
 df_subset = daily_sema[['id', 'sleep_duration', 'sleep_efficiency', 'sleep_points_percentage', 'sleep_deep_ratio', 'sleep_wake_ratio',
