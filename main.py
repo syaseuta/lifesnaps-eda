@@ -23,10 +23,62 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="데이터에 대하여",
+        page_title="",
+    )
+    st.markdown(
+        "<h3>데이터 수집</h3>",
+        unsafe_allow_html=True
     )
 
-    st.write("# 데이터 수집 방식 개요등을 설명합니다")
+    st.markdown("""
+        <h4>데이터 수집 개요</h4>
+        <style>
+        .text {
+            font-size: 14px;
+        }
+        </style>
+        <div class="text">
+        1. 기간 : 약 4개월<br>
+        2. 참가자 수 : 71명<br>
+        3. 방법 : 스마트워치를 통한 기록과 설문조사<br>
+        4. 데이터 : 신체 활동 패턴, 수면, 스트레스 및 전반적인 건강과 행동 및 심리적 패턴<br>
+        5. 제한 사항 : 참가자들은 평소와 같이 자연스럽게 행동하도록 지시받았고, 실험실 조건이나 제한은 별도로 부여되지 않았음<br>
+        6. 모니터링 : 참가자의 참여를 유지하기 위해 주간 알림 및 후속 조치<br>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <h4>참가자</h4>
+    <style>
+    .text {
+        font-size: 14px;
+    }
+    </style>
+    <div class="text">
+    1. 국적 분포 : 스웨덴 24명, 이탈리아 10명, 그리스 25명, 키프로스 12명<br>
+    2. 성별 : 남성 42명, 여성 29명<br>
+    3. 연령<br>
+	    - 모집 당시 최소 18세 이상<br>
+        - 두 명을 제외하고 모두 나이를 제공<br>
+        - 30세 미만과 30세 이상이 절반씩 분포(익명성이 보장되도록 범위가 정의됨)<br>
+    4. 모집 경로 : 샘플링 또는 대학 메일링 리스트에 대한 자원봉사 전화를 통해 모집<br>
+    5. 참가자에게는 참여에 대한 금전적 또는 기타 인센티브가 제공되지 않았음<br>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <h4>데이터 종류</h4>
+    <style>
+    .text {
+        font-size: 14px;
+    }
+    </style>
+    <div class="text">
+    1. Fitbit : 플래그십 스마트워치에서 데이터 감지<br>
+    2. SEMA3 : 참가자의 일일 목표, 기분 및 상황을 추출하기 위한 생태학적 순간 평가<br>
+    3. 설문조사 : 성격 및 불안 점수와 같은 평가가 포함된 설문조사 데이터<br>
+    </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     run()
@@ -49,7 +101,7 @@ hourly_sema = load_data(f'{folder_path}' + 'hourly_fitbit_sema_df_unprocessed.cs
 numeric_columns = daily_sema.select_dtypes(include=['float64', 'int64'])
 correlation_matrix = numeric_columns.corr()
 st.markdown(
-    "<h3>스트레스 관리와 수면품질, 활동과의 관계</h3>"
+    "<br><h3>스트레스 관리와 수면품질, 활동과의 관계</h3>"
     "<h4>Top10 heatmap</h4>", 
     unsafe_allow_html=True
 )
