@@ -17,10 +17,6 @@ from streamlit.logger import get_logger
 import pandas as pd
 import os
 import seaborn as sns
-from datetime import * 
-from functools import reduce
-from sklearn.linear_model import LinearRegression
-from scipy.stats import f_oneway
 import matplotlib.pyplot as plt
 
 LOGGER = get_logger(__name__)
@@ -35,15 +31,20 @@ def run():
 if __name__ == "__main__":
     run()
 
-#Path불러오기 
+
+@st.cache_resource
+def load_data(path):
+    return pd.read_csv(path)
+
+
 folder_path = os.path.join("./output_data/")
-daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
-hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
-breq = pd.read_csv(f'{folder_path}'+'breq.csv')
-panas = pd.read_csv(f'{folder_path}'+'panas.csv')
-personality = pd.read_csv(f'{folder_path}'+'personality.csv')
-stai = pd.read_csv(f'{folder_path}'+'stai.csv')
-ttm = pd.read_csv(f'{folder_path}'+'ttm.csv')
+daily_sema = load_data(f'{folder_path}' + 'daily_fitbit_sema_df_unprocessed.csv')
+hourly_sema = load_data(f'{folder_path}' + 'hourly_fitbit_sema_df_unprocessed.csv')
+# breq = load_data(f'{folder_path}' + 'breq.csv')
+# panas = load_data(f'{folder_path}' + 'panas.csv')
+# personality = load_data(f'{folder_path}' + 'personality.csv')
+# stai = load_data(f'{folder_path}' + 'stai.csv')
+# ttm = load_data(f'{folder_path}' + 'ttm.csv')
 
 numeric_columns = daily_sema.select_dtypes(include=['float64', 'int64'])
 correlation_matrix = numeric_columns.corr()

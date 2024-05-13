@@ -19,6 +19,7 @@ import os
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
+from main import daily_sema
 
 st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
 st.markdown(
@@ -30,16 +31,6 @@ st.markdown(
 #     "<h3 style='text-align: center;'>Top10 heatmap</h3>",
 #     unsafe_allow_html=True
 # )###로 표현했음
-
-#Path불러오기
-folder_path = os.path.join("../output_data/")
-daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
-hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
-breq = pd.read_csv(f'{folder_path}'+'breq.csv')
-panas = pd.read_csv(f'{folder_path}'+'panas.csv')
-personality = pd.read_csv(f'{folder_path}'+'personality.csv')
-stai = pd.read_csv(f'{folder_path}'+'stai.csv')
-ttm = pd.read_csv(f'{folder_path}'+'ttm.csv')
 
 
 ## 데이터 전처리 ##

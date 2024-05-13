@@ -20,18 +20,10 @@ import os
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
+from main import daily_sema
+from main import hourly_sema
 
 st.set_page_config(page_title="시간대별 운동량과 수면의 질의 관계")
-
-#Path불러오기
-folder_path = os.path.join("../output_data/")
-daily_sema = pd.read_csv(f'{folder_path}'+'daily_fitbit_sema_df_unprocessed.csv')
-hourly_sema = pd.read_csv(f'{folder_path}'+'hourly_fitbit_sema_df_unprocessed.csv')
-breq = pd.read_csv(f'{folder_path}'+'breq.csv')
-panas = pd.read_csv(f'{folder_path}'+'panas.csv')
-personality = pd.read_csv(f'{folder_path}'+'personality.csv')
-stai = pd.read_csv(f'{folder_path}'+'stai.csv')
-ttm = pd.read_csv(f'{folder_path}'+'ttm.csv')
 
 
 ## 데이터 전처리 ##
