@@ -95,3 +95,5 @@ st.markdown(
             따라서 exertion_points_percentage가 활동지수로서 신뢰할 만한 지표인 것을 확인할 수 있다.</h3>",
     unsafe_allow_html=True
 )
+
+st.pyplot(plt)
