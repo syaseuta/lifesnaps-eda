@@ -50,7 +50,7 @@ print(df['sleep_duration_hours'])
 # sleep_points_percentage 값을 100배하여 퍼센트로 표시
 df['sleep_points_percentage'] = df['sleep_points_percentage'] * 100
 
-# ID 별로 그룹화하여 평균값 계산
+# user_id 별로 그룹화하여 평균값 계산
 grouped_mean = df.groupby('id').mean()
 
 st.markdown(
@@ -132,7 +132,7 @@ st.pyplot(plt)
 
 st.markdown("""**수면 평균 시간과 수면 단계 비율성 비교**    
             → 해당 분석에서는 **수면 단계를 4단계**로 나타냄(얕은 수면, 깊은 수면, 렘 수면, 뒤척임)  
-            → 수면 시간이 **높을수록 모두 높음**  
+            → 수면 시간이 **높을수록 모두 높음**    
             → 단계별 수면 비율 중 **렘 수면, 깊은 수면의 비율이 상대적으로 높음** BUT **수면 단계별 차이는 미미함**""")
 
 st.markdown(
