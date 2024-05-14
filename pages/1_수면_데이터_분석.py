@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pandas as pd
-import os
 import seaborn as sns
 from datetime import * 
 from functools import reduce
@@ -25,27 +23,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import io
-
-@st.cache_resource
-def plot_graph(_x_data, y_data, title='그래프 제목', xlabel='X 축', ylabel='Y 축'):
-    plt.figure(figsize=(10, 5))
-    plt.plot(_x_data, y_data, marker='o', linestyle='-')
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.tight_layout()
-    
-    # Create a BytesIO object to hold the plot image
-    plot_image = io.BytesIO()
-    
-    # Save the plot to the BytesIO object
-    plt.savefig(plot_image, format='png')
-    
-    # Reset the BytesIO object's file pointer to the beginning
-    plot_image.seek(0)
-    
-    # Return the content of the BytesIO object
-    return plot_image.getvalue()
 
 # 필요한 컬럼 선택
 df_subset = daily_sema[['id', 'sleep_duration', 'sleep_efficiency', 'sleep_points_percentage', 'sleep_deep_ratio', 'sleep_wake_ratio',
@@ -83,6 +60,27 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+@st.cache_resource
+def plot_graph(_x_data, y_data, title='그래프 제목', xlabel='X 축', ylabel='Y 축'):
+    plt.figure(figsize=(10, 5))
+    plt.plot(_x_data, y_data, marker='o', linestyle='-')
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.tight_layout()
+    
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
 # 그래프를 플로팅
 plot_image = plot_graph(grouped_mean.index, grouped_mean['sleep_duration_hours'], title='Average Sleep Duration by ID', xlabel='ID', ylabel='Average Sleep Duration (hours)')
 
@@ -106,47 +104,69 @@ light_sleep_ratio = grouped_mean['sleep_light_ratio']
 rem_sleep_ratio = grouped_mean['sleep_rem_ratio']
 wake_sleep_ratio = grouped_mean['sleep_wake_ratio']
 
-# 산점도 시각화
-plt.figure(figsize=(12, 10))
+@st.cache_resource
+def plot_scatter(sleep_duration, deep_sleep_ratio, light_sleep_ratio, rem_sleep_ratio, wake_sleep_ratio):
+    plt.figure(figsize=(12, 10))
 
-# 깊은 잠의 비율
-plt.subplot(2, 2, 1)
-plt.scatter(sleep_duration, deep_sleep_ratio, alpha=0.5)
-plt.title('Average Sleep Duration vs. Deep Sleep Ratio')
-plt.xlabel('Average Sleep Duration (hours)')
-plt.ylabel('Deep Sleep Ratio')
-plt.ylim(0.85, 1.25)
-plt.grid(True)
+    # 깊은 잠의 비율
+    plt.subplot(2, 2, 1)
+    plt.scatter(sleep_duration, deep_sleep_ratio, alpha=0.5)
+    plt.title('Average Sleep Duration vs. Deep Sleep Ratio')
+    plt.xlabel('Average Sleep Duration (hours)')
+    plt.ylabel('Deep Sleep Ratio')
+    plt.xlim(5, 10)
+    plt.ylim(0.85, 1.25)
+    plt.grid(True)
 
-# 얕은 잠의 비율
-plt.subplot(2, 2, 2)
-plt.scatter(sleep_duration, light_sleep_ratio, alpha=0.5)
-plt.title('Average Sleep Duration vs. Light Sleep Ratio')
-plt.xlabel('Average Light Duration (hours)')
-plt.ylabel('Light Sleep Ratio')
-plt.ylim(0.85, 1.25)
-plt.grid(True)
+    # 얕은 잠의 비율
+    plt.subplot(2, 2, 2)
+    plt.scatter(sleep_duration, light_sleep_ratio, alpha=0.5)
+    plt.title('Average Sleep Duration vs. Light Sleep Ratio')
+    plt.xlabel('Average Light Duration (hours)')
+    plt.ylabel('Light Sleep Ratio')
+    plt.xlim(5, 10)
+    plt.ylim(0.85, 1.25)
+    plt.grid(True)
 
-# 렘수면의 비율
-plt.subplot(2, 2, 3)
-plt.scatter(sleep_duration, rem_sleep_ratio, alpha=0.5)
-plt.title('Average Sleep Duration vs. REM Sleep Ratio')
-plt.xlabel('Average Sleep Duration (hours)')
-plt.ylabel('REM Sleep Ratio')
-plt.ylim(0.85, 1.25)
-plt.grid(True)
+    # 렘수면의 비율
+    plt.subplot(2, 2, 3)
+    plt.scatter(sleep_duration, rem_sleep_ratio, alpha=0.5)
+    plt.title('Average Sleep Duration vs. REM Sleep Ratio')
+    plt.xlabel('Average Sleep Duration (hours)')
+    plt.ylabel('REM Sleep Ratio')
+    plt.xlim(5, 10)
+    plt.ylim(0.85, 1.25)
+    plt.grid(True)
 
-# 수면 뒤척임 비율
-plt.subplot(2, 2, 4)
-plt.scatter(sleep_duration, wake_sleep_ratio, alpha=0.5)
-plt.title('Average Sleep Duration vs. Wake Sleep Ratio')
-plt.xlabel('Average Sleep Duration (hours)')
-plt.ylabel('Wake Sleep Ratio')
-plt.ylim(0.85, 1.25)
-plt.grid(True)
+    # 수면 뒤척임 비율
+    plt.subplot(2, 2, 4)
+    plt.scatter(sleep_duration, wake_sleep_ratio, alpha=0.5)
+    plt.title('Average Sleep Duration vs. Wake Sleep Ratio')
+    plt.xlabel('Average Sleep Duration (hours)')
+    plt.ylabel('Wake Sleep Ratio')
+    plt.xlim(5, 10)
+    plt.ylim(0.85, 1.25)
+    plt.grid(True)
 
-plt.tight_layout()
-st.pyplot(plt)
+    plt.tight_layout()
+    
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# 그래프를 플로팅
+scatter_plot_image = plot_scatter(sleep_duration, deep_sleep_ratio, light_sleep_ratio, rem_sleep_ratio, wake_sleep_ratio)
+
+# Streamlit에 그래프를 표시
+st.image(scatter_plot_image, use_column_width=True)
 
 st.markdown("""**수면 평균 시간과 수면 단계 비율성 비교**    
             → 해당 분석에서는 **수면 단계를 4단계**로 나타냄(얕은 수면, 깊은 수면, 렘 수면, 뒤척임)  
@@ -158,36 +178,54 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 회귀 시각화 및 한 번에 표시
-plt.figure(figsize=(12, 10))
+@st.cache_resource
+def plot_regression():
+    plt.figure(figsize=(12, 10))
 
-# Sleep Duration vs. Sleep Efficiency
-plt.subplot(2, 2, 1)
-sns.regplot(data=grouped_mean, x='sleep_duration_hours', y='sleep_efficiency')
-plt.xlim(5, 10)
-plt.ylim(85, 100)
-plt.title('Sleep Duration vs. Sleep Efficiency (Regression Plot)')
-plt.xlabel('Sleep Duration (hours)')
-plt.ylabel('Sleep Efficiency')
+    # Sleep Duration vs. Sleep Efficiency
+    plt.subplot(2, 2, 1)
+    sns.regplot(data=grouped_mean, x='sleep_duration_hours', y='sleep_efficiency')
+    plt.xlim(6, 10)
+    plt.ylim(85, 100)
+    plt.title('Sleep Duration vs. Sleep Efficiency (Regression Plot)')
+    plt.xlabel('Sleep Duration (hours)')
+    plt.ylabel('Sleep Efficiency')
 
-# Sleep Duration vs. Sleep Points Percentage
-plt.subplot(2, 2, 2)
-sns.regplot(data=grouped_mean, x='sleep_duration_hours', y='sleep_points_percentage')
-plt.xlim(5, 10)
-plt.title('Sleep Duration vs. Sleep Points Percentage (Regression Plot)')
-plt.xlabel('Sleep Duration (hours)')
-plt.ylabel('Sleep Points Percentage')
+    # Sleep Duration vs. Sleep Points Percentage
+    plt.subplot(2, 2, 2)
+    sns.regplot(data=grouped_mean, x='sleep_duration_hours', y='sleep_points_percentage')
+    plt.xlim(6, 10)
+    plt.title('Sleep Duration vs. Sleep Points Percentage (Regression Plot)')
+    plt.xlabel('Sleep Duration (hours)')
+    plt.ylabel('Sleep Points Percentage')
 
-# Sleep Efficiency vs. Sleep Points Percentage
-plt.subplot(2, 2, 3)
-sns.regplot(data=grouped_mean, x='sleep_efficiency', y='sleep_points_percentage')
-plt.xlim(90, 98)
-plt.title('Scatter Plot of Sleep Efficiency and Sleep Points Percentage')
-plt.xlabel('Sleep Efficiency')
-plt.ylabel('Sleep Points Percentage')
+    # Sleep Efficiency vs. Sleep Points Percentage
+    plt.subplot(2, 2, 3)
+    sns.regplot(data=grouped_mean, x='sleep_efficiency', y='sleep_points_percentage')
+    plt.xlim(90, 97)
+    plt.title('Scatter Plot of Sleep Efficiency and Sleep Points Percentage')
+    plt.xlabel('Sleep Efficiency')
+    plt.ylabel('Sleep Points Percentage')
 
-plt.tight_layout()
-st.pyplot(plt)
+    plt.tight_layout()
+
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# 그래프를 플로팅
+regression_plot_image = plot_regression()
+
+# Streamlit에 그래프를 표시
+st.image(regression_plot_image, use_column_width=True)
 
 st.markdown("""**수면 시간과 수면 효율의 관계성 비교**   
             → 수면 시간은 **6~8시간**으로 분포함  

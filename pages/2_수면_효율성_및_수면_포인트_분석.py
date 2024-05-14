@@ -13,7 +13,7 @@
 # limitations under the License.
  
 import pandas as pd
-import os
+import io
 import seaborn as sns
 from datetime import * 
 from functools import reduce
@@ -59,14 +59,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Sleep Points Percentage vs Sleep Duration
-plt.figure(figsize=(8, 6))
-sns.regplot(data=grouped_mean, x='sleep_duration_hours', y='sleep_points_percentage')
-plt.xlim(5, 10)
-plt.title('Sleep Duration vs Sleep Points Percentage')
-plt.xlabel('Sleep Duration (hours)')
-plt.ylabel('Sleep Points Percentage')
-st.pyplot(plt)
+@st.cache_resource
+def plot_regression_graph(data, x_column, y_column, title='Regression Plot', x_label=None, y_label=None):
+    plt.figure(figsize=(8, 6))
+    sns.regplot(data=data, x=x_column, y=y_column)
+    plt.xlim(6, 10)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# 그래프 플로팅
+plot_image_bytes = plot_regression_graph(grouped_mean, x_column='sleep_duration_hours', y_column='sleep_points_percentage', title='Sleep Duration vs Sleep Points Percentage', x_label='Sleep Duration (hours)', y_label='Sleep Points Percentage')
+
+# Streamlit에 그래프를 표시
+st.image(plot_image_bytes, use_column_width=True)
 
 st.markdown("""**수면 시간과 수면 포인트 비율 비교**    
             → 수면 시간은 **6~8시간**으로 분포 되어있으며  
@@ -78,14 +96,33 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Sleep Points Percentage vs Sleep Effficiency
-plt.figure(figsize=(8, 6))
-sns.regplot(data=grouped_mean, x='sleep_efficiency', y='sleep_points_percentage')
-plt.xlim(90, 98)
-plt.title('Sleep Points Percentage vs Sleep Effficiency')
-plt.xlabel('Sleep Efficiency')
-plt.ylabel('Sleep Points Percentage')
-st.pyplot(plt)
+@st.cache_resource
+def plot_regression_graph(data, x_column, y_column, title='Regression Plot', x_label=None, y_label=None):
+    plt.figure(figsize=(8, 6))
+    sns.regplot(data=data, x=x_column, y=y_column)
+    plt.xlim(90, 97)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# 그래프 플로팅
+plot_image_bytes = plot_regression_graph(grouped_mean, x_column='sleep_efficiency', y_column='sleep_points_percentage', title='Sleep Points Percentage vs Sleep Efficiency', x_label='Sleep Efficiency', y_label='Sleep Points Percentage')
+
+# Streamlit에 그래프를 표시
+st.image(plot_image_bytes, use_column_width=True)
+
 
 st.markdown("""**수면 효율과 수면 포인트 비율 비교**  
             → 수면 효율은 **90~98퍼센트** 사이에 고르게 분포 됨  
@@ -121,42 +158,83 @@ st.markdown(
 exertion_selcted_columns = ['exertion_points_percentage', 'stress_score', 'calories', 'distance', 'lightly_active_minutes', 'moderately_active_minutes', 'very_active_minutes', 'total_active_minutes', 'sedentary_minutes', 'resting_hr']
 exertion_corr = daily_sema[exertion_selcted_columns].corr()
 
-plt.figure()
-sns.heatmap(data=exertion_corr, annot=True, fmt='.2f', cmap='coolwarm')
-plt.show()
-st.pyplot(plt)
+@st.cache_resource
+def plot_heatmap(data, annot=True, fmt='.2f', cmap='coolwarm', title='Heatmap'):
+    plt.figure()
+    sns.heatmap(data=data, annot=annot, fmt=fmt, cmap=cmap)
+    plt.title(title)
+    
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+    
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+    
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+    
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# heatmap 플로팅
+heatmap_image_bytes = plot_heatmap(data=exertion_corr, annot=True, fmt='.2f', cmap='coolwarm', title='Exertion Correlation Heatmap')
+
+# Streamlit에 heatmap 표시
+st.image(heatmap_image_bytes, use_column_width=True)
 
 st.markdown(
     "<h3 style='text-align: left;'>exertion_points_percentage에 영향을 미치는 요인 8개</h3>", 
     unsafe_allow_html=True
 )
-# 그래프 크기 및 subplot 생성
-fig, axs = plt.subplots(3, 3, figsize=(18, 14))
-axs[-1, -1].remove()  # 마지막 subplot 삭제
 
-# 사용할 x축 값들
-x_columns = ['calories', 'distance', 'total_active_minutes', 
-             'lightly_active_minutes', 'moderately_active_minutes', 
-             'very_active_minutes', 'sedentary_minutes', 'resting_hr']
+@st.cache_resource
+def plot_subplot_lineplots_cached(data, y_columns, x_column='exertion_points_percentage', figsize=(18, 14), title=None):
+    fig, axs = plt.subplots(3, 3, figsize=figsize)
+    axs[-1, -1].remove()  # 마지막 subplot 삭제
 
-# 각 subplot에 대해 line plot 그리기
-for i, ax in enumerate(axs.flat):
-    # x축과 y축 설정
-    if i < len(x_columns):
-        y_column = x_columns[i]
-        x_column = 'exertion_points_percentage'
+    # 각 subplot에 대해 line plot 그리기
+    for i, ax in enumerate(axs.flat):
+        # y축 설정
+        if i < len(y_columns):
+            y_column = y_columns[i]
 
-        # line plot 그리기
-        sns.lineplot(x=x_column, y=y_column, data=daily_sema, ax=ax)
+            # line plot 그리기
+            sns.lineplot(x=x_column, y=y_column, data=data, ax=ax)
 
-        # x축과 y축 레이블 설정
-        ax.set_xlabel(x_column)
-        ax.set_ylabel(y_column)
+            # x축과 y축 레이블 설정
+            ax.set_xlabel(x_column)
+            ax.set_ylabel(y_column)
 
-# 레이아웃 조정
-plt.tight_layout()
+    # 전체 그래프의 제목 설정
+    if title:
+        plt.suptitle(title)
 
-st.pyplot(plt)
+    # 레이아웃 조정
+    plt.tight_layout()
+
+    # BytesIO 객체 생성
+    plot_image = io.BytesIO()
+
+    # 그래프를 이미지 파일로 저장
+    plt.savefig(plot_image, format='png')
+
+    # BytesIO 객체의 파일 포인터를 처음으로 되돌림
+    plot_image.seek(0)
+
+    # BytesIO 객체의 내용 반환
+    return plot_image.getvalue()
+
+# subplot에 그래프 플로팅 (캐싱 사용)
+subplot_image_bytes = plot_subplot_lineplots_cached(data=daily_sema, y_columns=['calories', 'distance', 'total_active_minutes', 
+                                                                        'lightly_active_minutes', 'moderately_active_minutes', 
+                                                                        'very_active_minutes', 'sedentary_minutes', 'resting_hr'], 
+                                              x_column='exertion_points_percentage', 
+                                              figsize=(18, 14), 
+                                              title='Exertion Points Percentage vs Various Activities')
+
+# Streamlit에 subplot 그래프 표시
+st.image(subplot_image_bytes, use_column_width=True)
+    
 
 st.markdown("""
 <style>
