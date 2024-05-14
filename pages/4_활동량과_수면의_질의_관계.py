@@ -20,8 +20,10 @@ import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from 데이터_수집 import daily_sema
+import io
+from functools import lru_cache
 
-st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
+# st.set_page_config(page_title="활동량(Active_minutes)와 수면의 질(sleep_points_percentage)의 관계")
 st.markdown(
     "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
     unsafe_allow_html=True
@@ -108,25 +110,57 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+@st.cache_resource
+def active_minutes_sleep_points_graph():
+    # Create a BytesIO object to store the image
+    buffer = io.BytesIO()
 
-plt.figure(figsize=(20, 20))
-plt.subplot(3, 2, 1)
-sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='sedentary_rank', palette='bright')
-plt.title('sedentary_rank')
-plt.subplot(3, 2, 2)
-sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='total_active_rank', palette='bright')
-plt.title('Total_Active_rank')
-plt.subplot(3, 2, 3)
-sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='lightly_active_rank', palette='bright')
-plt.title('lightly_active_rank')
-plt.subplot(3, 2, 4)
-sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='moderately_active_rank', palette='bright')
-plt.title('moderately_active_rank')
-plt.subplot(3, 2, 5)
-sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='very_active_rank', palette='bright')
-plt.title('very_active_rank')
-plt.show()
-st.pyplot(plt)
+    # Plotting code
+    fig, axes = plt.subplots(3, 2, figsize=(20, 20))
+    axes = axes.flatten()
+    sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='sedentary_rank', palette='bright', ax=axes[0])
+    axes[0].set_title('sedentary_rank')
+    sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='total_active_rank', palette='bright', ax=axes[1])
+    axes[1].set_title('Total_Active_rank')
+    sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='lightly_active_rank', palette='bright', ax=axes[2])
+    axes[2].set_title('lightly_active_rank')
+    sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='moderately_active_rank', palette='bright', ax=axes[3])
+    axes[3].set_title('moderately_active_rank')
+    sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='very_active_rank', palette='bright', ax=axes[4])
+    axes[4].set_title('very_active_rank')
+    # Remove the 6th subplot
+    fig.delaxes(axes[5])
+
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')  # Save plot to BytesIO object in PNG format
+    plt.close()  # Close the plot to free up memory
+
+    # Return the BytesIO object containing the image data
+    return buffer
+
+plot_image1 = active_minutes_sleep_points_graph()
+
+# Streamlit에 그래프를 표시
+st.image(plot_image1, use_column_width=True)
+
+# plt.figure(figsize=(20, 20))
+# plt.subplot(3, 2, 1)
+# sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='sedentary_rank', palette='bright')
+# plt.title('sedentary_rank')
+# plt.subplot(3, 2, 2)
+# sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='total_active_rank', palette='bright')
+# plt.title('Total_Active_rank')
+# plt.subplot(3, 2, 3)
+# sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='lightly_active_rank', palette='bright')
+# plt.title('lightly_active_rank')
+# plt.subplot(3, 2, 4)
+# sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='moderately_active_rank', palette='bright')
+# plt.title('moderately_active_rank')
+# plt.subplot(3, 2, 5)
+# sns.lineplot(data=daily_sema, x='stress_score', y='sleep_points_percentage', hue='very_active_rank', palette='bright')
+# plt.title('very_active_rank')
+# plt.show()
+# st.pyplot(plt)
 
 st.markdown("""
 <style>
@@ -145,10 +179,34 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-plt.figure(figsize=(20, 20))
-sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='resting_hr', palette='bright')
-plt.title('resting_hr vs sleep_points_percentage')
-st.pyplot(plt)
+@st.cache_resource
+def plot_to_bytes(data, x, y, title):
+    plt.figure(figsize=(20, 20))
+    sns.lineplot(data=data, x=x, y=y, palette='bright')
+    plt.title(title)
+    
+    # Create a BytesIO object to hold the plot image
+    buffer = io.BytesIO()
+    
+    # Save the plot to the BytesIO object
+    plt.savefig(buffer, format='png')
+    
+    # Reset the BytesIO object's file pointer to the beginning
+    buffer.seek(0)
+    
+    # Return the content of the BytesIO object
+    return buffer.getvalue()
+
+# 예시로 함수를 호출하는 방법
+plot_image2 = plot_to_bytes(daily_sema, 'sleep_points_percentage', 'resting_hr', 'resting_hr vs sleep_points_percentage')
+
+# Streamlit에 그래프를 표시
+st.image(plot_image2, use_column_width=True)
+
+# plt.figure(figsize=(20, 20))
+# sns.lineplot(data=daily_sema, x='sleep_points_percentage', y='resting_hr', palette='bright')
+# plt.title('resting_hr vs sleep_points_percentage')
+# st.pyplot(plt)
 
 st.markdown("""
 <style>
