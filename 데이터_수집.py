@@ -22,8 +22,10 @@ import matplotlib.pyplot as plt
 LOGGER = get_logger(__name__)
 
 def run():
-    st.set_page_config(
-        page_title="",
+    st.set_page_config(page_title="데이터 수집")
+    st.markdown(
+        "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>",
+        unsafe_allow_html=True
     )
     st.markdown(
         "<h3>데이터 수집</h3>",
