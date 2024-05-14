@@ -43,6 +43,7 @@ stress_score와 exertion_points_percentage가 양의 상관 관계임을 확인�
 스트레스 관리 능력이 높을 수록 운동 비율이 높아지는 경향을 보입니다.<br><br>
 </div>
 """, unsafe_allow_html=True)
+@st.cache_resource
 def plot_stress_vs_exertion(daily_sema):
     plt.figure(figsize=(10, 6))
     daily_sema.dropna(subset=['exertion_points_percentage', 'stress_score'], inplace=True)
@@ -83,6 +84,7 @@ st.markdown("""
 stress관리 능력이 높을 수록 움직인 시간이 강하게 증가하는 경향을 볼 수 있습니다.<br><br>
 </div>
 """, unsafe_allow_html=True)
+@st.cache_resource
 def plot_stress_vs_activity(daily_sema):
     daily_sema['total_active_minutes'] = daily_sema['lightly_active_minutes'] + daily_sema['moderately_active_minutes'] + daily_sema['very_active_minutes']
     # NaN 값이 있는 행 제거
@@ -137,12 +139,16 @@ stress_score가 높을수록 very_active_minutes(1.01), moderate_active_minutes(
 스트레스 관리 능력이 높아질 수록 휴식시간이 많이 줄어주고, 활동을 하는 경향을 보입니다. <br><br>
 </div>
 """, unsafe_allow_html=True)
+@st.cache_resource
+def load_data(daily_sema):
+    daily_sema.dropna(subset=['very_active_minutes', 'moderately_active_minutes', 'lightly_active_minutes', 'sedentary_minutes', 'stress_score'], inplace=True)
+    return daily_sema
+
 def plot_activity_vs_stress_subplot(daily_sema, activity_type, ax):
-    daily_sema.dropna(subset=[f'{activity_type}', 'stress_score'], inplace=True)
     X = daily_sema[daily_sema['stress_score'] > 60][['stress_score']]
 
     # 종속 변수 선택
-    y = daily_sema[daily_sema['stress_score'] > 60][f'{activity_type}']
+    y = daily_sema[daily_sema['stress_score'] > 60][activity_type]
 
     # Linear Regression 모델 생성
     model = LinearRegression()
@@ -150,18 +156,21 @@ def plot_activity_vs_stress_subplot(daily_sema, activity_type, ax):
     # 모델 피팅
     model.fit(X, y)
 
-    sns.regplot(x='stress_score', y=f'{activity_type}', data=daily_sema[daily_sema['stress_score'] > 60], ax=ax, line_kws={"color": "red"})
+    sns.regplot(x='stress_score', y=activity_type, data=daily_sema[daily_sema['stress_score'] > 60], ax=ax, line_kws={"color": "red"})
 
     # 회귀 계수 출력
     coeff = model.coef_[0]
 
     ax.set_title(f'stress_score vs. {activity_type} (stress_score > 60)')
     ax.set_xlabel('stress_score')
-    ax.set_ylabel(f'{activity_type}')
+    ax.set_ylabel(activity_type)
     ax.plot(X, model.predict(X), color='red', label=f'Regression Line (Coefficient: {model.coef_[0]:.2f})')
 
     ax.legend(loc='lower left')
     plt.tight_layout()
+
+# 데이터 로딩
+daily_sema = load_data(daily_sema)
 
 # 2x2 서브플롯 생성
 fig, axs = plt.subplots(2, 2, figsize=(12, 10))
@@ -174,6 +183,7 @@ plot_activity_vs_stress_subplot(daily_sema, 'sedentary_minutes', axs[1, 1])
 
 # 그래프 출력
 st.pyplot(fig)  # 스트림릿에 그래프 출력
+
 
 st.markdown(
     "<h3>스트레스 관리능력과 수면의 관계</h3>"
@@ -236,6 +246,7 @@ st.markdown("""
 <br><br>
 </div>
 """, unsafe_allow_html=True)
+@st.cache_resource
 def plot_stress_vs_sleep_wake_ratio(daily_sema):
     daily_sema.dropna(subset=['sleep_wake_ratio', 'stress_score'], inplace=True)
     subset_data = daily_sema[daily_sema['stress_score'] > 60]
@@ -287,6 +298,7 @@ st.markdown("""
 <br><br>
 </div>
 """, unsafe_allow_html=True)
+@st.cache_resource
 def plot_exertion_vs_sleep_points(daily_sema):
     daily_sema.dropna(subset=['exertion_points_percentage', 'sleep_points_percentage'], inplace=True)
 
