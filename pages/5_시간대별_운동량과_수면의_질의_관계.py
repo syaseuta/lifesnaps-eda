@@ -20,11 +20,14 @@ import os
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
-from main import daily_sema
-from main import hourly_sema
+from 데이터_수집 import daily_sema
+from 데이터_수집 import hourly_sema
 
 st.set_page_config(page_title="시간대별 운동량과 수면의 질의 관계")
-
+st.markdown(
+    "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>", 
+    unsafe_allow_html=True
+)
 
 ## 데이터 전처리 ##
 daily_sema['total_active_minutes'] = daily_sema['lightly_active_minutes'] + daily_sema['moderately_active_minutes'] + daily_sema['very_active_minutes']
