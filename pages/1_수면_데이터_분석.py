@@ -21,12 +21,38 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from 데이터_수집 import daily_sema
 
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+
+@st.cache_resource
+def plot_graph(_x_data, y_data, title='그래프 제목', xlabel='X 축', ylabel='Y 축'):
+    plt.figure(figsize=(10, 5))
+    plt.plot(_x_data, y_data, marker='o', linestyle='-')
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.tight_layout()
+    
+    # Create a BytesIO object to hold the plot image
+    plot_image = io.BytesIO()
+    
+    # Save the plot to the BytesIO object
+    plt.savefig(plot_image, format='png')
+    
+    # Reset the BytesIO object's file pointer to the beginning
+    plot_image.seek(0)
+    
+    # Return the content of the BytesIO object
+    return plot_image.getvalue()
+
 # 필요한 컬럼 선택
 df_subset = daily_sema[['id', 'sleep_duration', 'sleep_efficiency', 'sleep_points_percentage', 'sleep_deep_ratio', 'sleep_wake_ratio',
                         'sleep_light_ratio', 'sleep_rem_ratio']]
 
 # 결측값 제거
-df_subset.dropna(subset=['sleep_duration'], inplace=True)
+df_subset = df_subset.dropna(subset=['sleep_duration'])
 
 # 밀리초를 시간으로 변환하는 함수
 def milliseconds_to_hours(milliseconds):
@@ -57,14 +83,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-plt.figure(figsize=(10, 5))
-plt.plot(grouped_mean.index, grouped_mean['sleep_duration_hours'], marker='o', linestyle='-')
-plt.title('Average Sleep Duration by ID')
-plt.xlabel('ID')
-plt.ylabel('Average Sleep Duration (hours)')
-plt.tight_layout()
-plt.show()
-st.pyplot(plt)
+# 그래프를 플로팅
+plot_image = plot_graph(grouped_mean.index, grouped_mean['sleep_duration_hours'], title='Average Sleep Duration by ID', xlabel='ID', ylabel='Average Sleep Duration (hours)')
+
+# Streamlit에 그래프를 표시
+st.image(plot_image, use_column_width=True)
+
 
 st.markdown("""**ID 별로 그룹화하여 평균 수면 시간 시각화**  
             → 대체적으로 **6~8시간**이 제일 많으며 몇몇 ID에서 **이상치**가 발견됨   
