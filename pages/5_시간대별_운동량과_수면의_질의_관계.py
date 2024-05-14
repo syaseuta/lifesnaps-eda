@@ -14,7 +14,7 @@
 
 
 import pandas as pd
-
+import io
 import streamlit as st
 import os
 import seaborn as sns
@@ -65,34 +65,65 @@ print("칼로리 소모 하위 25%의 id 리스트:", lower_25_ids)
 
 
 st.markdown(
-    "<h3 style='text-align: center;'>평균 칼로리 소모량 상위 25%인 그룹의 시간대별 칼로리 소모량 곡선\
+    "<h3 style='text-align: left;'>평균 칼로리 소모량 상위 25%인 그룹의 시간대별 칼로리 소모량 곡선\
         </h3>",
     unsafe_allow_html=True
 )
 
-i = 1
-for id in upper_25_ids:
+@st.cache_resource
+def plot_multiple_lineplots_upper_25(data, ids, x, y):
+    # Create a BytesIO object to store the image
+    buffer = io.BytesIO()
+    
     plt.figure(figsize=(30, 20))
-    plt.subplot(5, 5, i)
-    sns.lineplot(data=hourly_sema.loc[hourly_sema['id'] == id], x='hour', y='calories')
-    plt.title(id)
-    i += 1
-    st.pyplot(plt)
+    i = 1
+    for id in ids:
+        plt.subplot(3, 4, i)
+        sns.lineplot(data=data.loc[data['id'] == id], x=x, y=y)
+        plt.title(id)
+        i += 1
+
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')  # Save plot to BytesIO object in PNG format
+    plt.close()  # Close the plot to free up memory
+
+    # Return the BytesIO object containing the image data
+    return buffer.getvalue()
+
+plot_image1 = plot_multiple_lineplots_upper_25(hourly_sema, lower_25_ids, 'hour', 'calories')
+
+st.image(plot_image1, use_column_width=True)
 
 st.markdown(
-    "<h3 style='text-align: center;'>평균 칼로리 소모량 하위 25%인 그룹의 시간대별 칼로리 소모량 곡선\
+    "<h3 style='text-align: left;'>평균 칼로리 소모량 하위 25%인 그룹의 시간대별 칼로리 소모량 곡선\
         </h3>",
     unsafe_allow_html=True
 )
 
-i = 1
-for id in lower_25_ids:
+@st.cache_resource
+def plot_multiple_lineplots_lower_25(data, ids, x, y):
+    # Create a BytesIO object to store the image
+    buffer = io.BytesIO()
+    
     plt.figure(figsize=(30, 20))
-    plt.subplot(5, 5, i)
-    sns.lineplot(data=hourly_sema.loc[hourly_sema['id'] == id], x='hour', y='calories')
-    plt.title(id)
-    i += 1
-    st.pyplot(plt)
+    i = 1
+    for id in ids:
+        plt.subplot(3, 4, i)
+        sns.lineplot(data=data.loc[data['id'] == id], x=x, y=y)
+        plt.title(id)
+        i += 1
+
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')  # Save plot to BytesIO object in PNG format
+    plt.close()  # Close the plot to free up memory
+
+    # Return the BytesIO object containing the image data
+    return buffer.getvalue()
+
+# 예시로 함수를 호출하는 방법
+plot_image2 = plot_multiple_lineplots_lower_25(hourly_sema, lower_25_ids, 'hour', 'calories')
+
+st.image(plot_image2, use_column_width=True)
 
 st.markdown("""
 <style>
@@ -115,13 +146,29 @@ combined_data_upper = pd.concat([hourly_sema.loc[hourly_sema['id'] == id] for id
 combined_data_lower = pd.concat([hourly_sema.loc[hourly_sema['id'] == id] for id in lower_25_ids])
 
 # kdeplot으로 데이터의 분포 시각화
-plt.figure(figsize=(10, 10))
-sns.kdeplot(data=combined_data_upper, x='hour', y='calories', color='blue', label='upper 25%', shade=True)
-sns.kdeplot(data=combined_data_lower, x='hour', y='calories', color='orange', label='lower 25%', shade=True)
-plt.ylim(0, 400)
-plt.title('Combined KDE Plot for lower 25% ids vs upper 25% ids')
-plt.legend(loc='upper left', fontsize='large')
-st.pyplot(plt)
+@st.cache_resource
+def plot_combined_kde_plot(data_upper, data_lower, x, y):
+    # Create a BytesIO object to store the image
+    buffer = io.BytesIO()
+    
+    plt.figure(figsize=(10, 10))
+    sns.kdeplot(data=data_upper, x=x, y=y, color='blue', label='upper 25%', shade=True)
+    sns.kdeplot(data=data_lower, x=x, y=y, color='orange', label='lower 25%', shade=True)
+    plt.ylim(0, 400)
+    plt.title('Combined KDE Plot for lower 25% ids vs upper 25% ids')
+    plt.legend(loc='upper left', fontsize='large')
+
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')  # Save plot to BytesIO object in PNG format
+    plt.close()  # Close the plot to free up memory
+
+    # Return the BytesIO object containing the image data
+    return buffer.getvalue()
+
+# 예시로 함수를 호출하는 방법
+plot_image3 = plot_combined_kde_plot(combined_data_upper, combined_data_lower, 'hour', 'calories')
+
+st.image(plot_image3, use_column_width=True)
 
 st.markdown("""
 <style>
