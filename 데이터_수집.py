@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import io
 
 import streamlit as st
 from streamlit.logger import get_logger
@@ -135,7 +136,21 @@ top_correlation_columns = correlation_matrix.abs().stack().nlargest(10).index
 top_correlation_matrix = correlation_matrix.loc[top_correlation_columns.get_level_values(0), top_correlation_columns.get_level_values(1)]
 
 # 히트맵 그리기
-fig, ax = plt.subplots(figsize=(10, 8))
-sns.heatmap(top_correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
-plt.title('Top 10 Correlation Heatmap (for numeric columns)')
-st.pyplot(fig)
+@st.cache_resource
+def create_heatmap(top_correlation_matrix):
+    # 그래프 그리기
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(top_correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+    plt.title('Top 10 Correlation Heatmap (for numeric columns)')
+
+    # 이미지 데이터 생성
+    image_data = io.BytesIO()
+    fig.savefig(image_data, format='png')
+    image_data.seek(0)
+
+    return image_data
+
+
+# 이미지 데이터를 캐시하고 필요할 때 로드하여 표시
+heatmap_image_data = create_heatmap(top_correlation_matrix)
+st.image(heatmap_image_data, use_column_width=True)
