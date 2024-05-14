@@ -84,19 +84,15 @@ if __name__ == "__main__":
     run()
 
 
-# @st.cache_resource
-def load_data(path):
-    return pd.read_csv(path)
+@st.cache_resource
+def load_data():
+    folder_path = os.path.join("./output_data/")
+    daily = pd.read_csv(f'{folder_path}' + 'daily_fitbit_sema_df_unprocessed.csv')
+    hourly = pd.read_csv(f'{folder_path}' + 'hourly_fitbit_sema_df_unprocessed.csv')
+    return daily, hourly
 
 
-folder_path = os.path.join("./output_data/")
-daily_sema = load_data(f'{folder_path}' + 'daily_fitbit_sema_df_unprocessed.csv')
-hourly_sema = load_data(f'{folder_path}' + 'hourly_fitbit_sema_df_unprocessed.csv')
-# breq = load_data(f'{folder_path}' + 'breq.csv')
-# panas = load_data(f'{folder_path}' + 'panas.csv')
-# personality = load_data(f'{folder_path}' + 'personality.csv')
-# stai = load_data(f'{folder_path}' + 'stai.csv')
-# ttm = load_data(f'{folder_path}' + 'ttm.csv')
+daily_sema, hourly_sema = load_data()
 
 numeric_columns = daily_sema.select_dtypes(include=['float64', 'int64'])
 correlation_matrix = numeric_columns.corr()
