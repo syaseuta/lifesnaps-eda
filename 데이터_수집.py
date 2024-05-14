@@ -27,8 +27,21 @@ def run():
         "<h1 style='text-align: center;'>Kaggle Fitbit Sleep EDA Project</h1><br><br>",
         unsafe_allow_html=True
     )
+
+    st.markdown("""
+        <h3>주제</h3>
+        <style>
+        .text {
+            font-size: 14px;
+        }
+        </style>
+        <div class="text">
+        fitbit 기기로 수집한 생체 데이터를 바탕으로 분석한 수면 품질에 미치는 요인에 대한 분석
+        </div>
+        """, unsafe_allow_html=True)
+
     st.markdown(
-        "<h3>데이터 수집</h3>",
+        "<br><h3>데이터 수집</h3>",
         unsafe_allow_html=True
     )
 
