@@ -143,6 +143,9 @@ def create_heatmap(top_correlation_matrix):
     sns.heatmap(top_correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
     plt.title('Top 10 Correlation Heatmap (for numeric columns)')
 
+    # 그래프 요소들을 조정하여 잘림 방지
+    plt.tight_layout()
+
     # 이미지 데이터 생성
     image_data = io.BytesIO()
     fig.savefig(image_data, format='png')

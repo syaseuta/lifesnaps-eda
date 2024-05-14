@@ -160,10 +160,13 @@ exertion_corr = daily_sema[exertion_selcted_columns].corr()
 
 @st.cache_resource
 def plot_heatmap(data, annot=True, fmt='.2f', cmap='coolwarm', title='Heatmap'):
-    plt.figure()
+    plt.figure(figsize=(10, 8))
     sns.heatmap(data=data, annot=annot, fmt=fmt, cmap=cmap)
     plt.title(title)
-    
+
+    # 그래프 요소들을 조정하여 잘림 방지
+    plt.tight_layout()
+
     # BytesIO 객체 생성
     plot_image = io.BytesIO()
     
